@@ -16,7 +16,8 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::latest()->with(['user'])->paginate(20);
+        $posts = Post::latest()->with(['user','likes'])->paginate(20);
+
         return view('posts.index', [
             'posts' => $posts
         ]);
@@ -87,5 +88,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::findOrFail($id);
+        $this->authorize('delete', $post);
+        $post->delete();
+        return back();
     }
 }
