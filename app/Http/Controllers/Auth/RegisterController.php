@@ -21,7 +21,6 @@ class RegisterController extends Controller
     }
 
     public function store(StoreUser $request){
-
         //pass validated data into data object and hash the password
         $data = $request->validated();
         $data['password'] = Hash::make($request->password);

@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserPostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,10 +32,16 @@ Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')
 
 
 Route::get('/register',[RegisterController::class,'index'])->name('register');
-Route::get('/register',[RegisterController::class,'index'])->name('register');
+Route::post('/register',[RegisterController::class,'store'])->name('register');
 
 Route::get('/login',[LoginController::class,'index'])->name('login');
 Route::post('/login',[LoginController::class,'store'])->name('login');
 
 Route::post('/logout',[LogoutController::class,'logout'])->name('logout');
+
+
+Route::resource('posts', PostController::class);
+Route::get('/users/{user:username}/posts', [UserPostController::class, 'index'])->name('users.posts');
+
+
 
